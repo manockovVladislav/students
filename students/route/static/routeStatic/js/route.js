@@ -98,3 +98,91 @@ function getList() {
 $( "#toggleButton" ).click(function() {
     $( ".registrationsToggle" ).slideToggle( "fast" );
   });
+
+
+  class ComponentAPI {
+      constructor(method, link, data){
+        this.method = method;
+        this.link = link;
+        this.data = data;
+      }
+      
+      get getRequest() {
+        return this.request();
+      }
+
+    request() {
+        var res = $.ajax({
+            type: this.method, 
+            data: this.data,
+            url: this.link,
+            // headers: { "X-CSRFToken": csrftoken },
+            success: function (response) {
+                try{
+                    var jsonRes = JSON.parse(response);
+                 }  
+                 catch{
+                     var jsonRes = response;
+                 }
+     
+                //  if (response) {
+                //    console.log(jsonRes);
+                //  }
+                return jsonRes
+            },
+            error: function (err) {
+                console.log("error");
+                console.log(err);
+            }
+        });
+
+        return res
+    }
+  }
+
+async function getRes(){
+    var list_all_method = "GET";
+  var list_all_link = 'http://127.0.0.1:8000/route/students/';
+  var list_all_students = new ComponentAPI(list_all_method, list_all_link);
+  var all_req = await list_all_students.getRequest;
+  console.log(JSON.parse(all_req));
+
+  var list_one_method = "GET";
+  var list_one_link = 'http://127.0.0.1:8000/route/students/1';
+  var list_one_students = new ComponentAPI(list_one_method, list_one_link);
+  var one_req = await list_one_students.getRequest;
+  console.log(JSON.parse(one_req));
+
+  var data = {
+    "firstName": "Ivan", "lastName": "Ivanov", "group": "VIS21"
+  }
+  var list_one_method = "POST";
+  var list_one_link = 'http://127.0.0.1:8000/route/students/';
+  var list_one_students = new ComponentAPI(list_one_method, list_one_link, data);
+  var one_req = await list_one_students.getRequest;
+  console.log(one_req);
+  
+  var data_put = {
+    "firstName": "Semen"
+  }
+  var list_put_method = "PUT";
+  var list_put_link = 'http://127.0.0.1:8000/route/students/5/';
+  var list_put_students = new ComponentAPI(list_put_method, list_put_link, data_put);
+  var put_req = await list_put_students.getRequest;
+  console.log(put_req);
+  
+  var list_put_method = "DELETE";
+  var list_put_link = 'http://127.0.0.1:8000/route/students/22/';
+  var list_put_students = new ComponentAPI(list_put_method, list_put_link);
+  var put_req = await list_put_students.getRequest;
+  console.log(put_req);
+}
+
+
+
+
+getRes()
+  
+
+
+  

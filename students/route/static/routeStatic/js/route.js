@@ -82,8 +82,8 @@ function getList() {
         // headers: { "X-CSRFToken": csrftoken },
         success: function (response) {
             if (response) {
-            var jsonRes = JSON.parse(response)
-              console.log(jsonRes)
+            // var jsonRes = JSON.parse(response)
+              console.log(response)
 
             }
         },
@@ -98,3 +98,4 @@ function getList() {
 $( "#toggleButton" ).click(function() {
     $( ".registrationsToggle" ).slideToggle( "fast" );
   });
+

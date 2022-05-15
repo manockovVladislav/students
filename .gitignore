@@ -1,0 +1,5 @@
+venv/
+production/
+.vscode/
+/media/*
+media/*
